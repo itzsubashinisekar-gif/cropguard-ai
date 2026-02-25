@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import heroBg from "@/assets/hero-bg.jpg";
 import SectionCard from "@/components/SectionCard";
 import HighlightBox from "@/components/HighlightBox";
 import InfoList from "@/components/InfoList";
@@ -14,6 +13,9 @@ import {
   BookOpen,
   Sprout,
   Shield,
+  Leaf,
+  Sun,
+  Droplets,
 } from "lucide-react";
 
 const tableOfContents = [
@@ -29,13 +31,53 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background font-body">
       {/* Hero */}
-      <header className="relative flex min-h-[70vh] items-center justify-center overflow-hidden">
-        <img
-          src={heroBg}
-          alt="Aerial view of green farmland"
-          className="absolute inset-0 h-full w-full object-cover"
+      <header className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-primary">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 h-64 w-64 rounded-full bg-accent blur-3xl" />
+          <div className="absolute bottom-10 right-10 h-80 w-80 rounded-full bg-secondary blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-foreground blur-3xl" />
+        </div>
+
+        {/* Floating icons */}
+        <motion.div
+          animate={{ y: [0, -15, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-20 left-[15%] text-primary-foreground/15"
+        >
+          <Leaf className="h-16 w-16" />
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, 12, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute top-32 right-[12%] text-primary-foreground/15"
+        >
+          <Sun className="h-20 w-20" />
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          className="absolute bottom-24 left-[20%] text-primary-foreground/15"
+        >
+          <Droplets className="h-14 w-14" />
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          className="absolute bottom-32 right-[18%] text-primary-foreground/15"
+        >
+          <Sprout className="h-16 w-16" />
+        </motion.div>
+
+        {/* Grid pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "radial-gradient(circle, hsl(var(--primary-foreground)) 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-hero opacity-75" />
+
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -58,8 +100,6 @@ const Index = () => {
           </p>
         </motion.div>
       </header>
-
-      {/* Table of Contents */}
       <nav className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-4 py-2 text-sm">
           {tableOfContents.map((item, i) => (
